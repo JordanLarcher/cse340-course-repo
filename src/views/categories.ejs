@@ -1,0 +1,17 @@
+<%- include('partials/header') %>
+<main>
+    <h1><%- title %></h1>
+
+    <section class="categories-list">
+        <p>Please select a service project category:</p>
+        <ul>
+            <% categories.forEach(category => { %>
+                <li>
+                    <a href="/category/<%= category.category.id %>">
+                        <%= category.category_name %>
+                    </a>
+                </li>>
+            <% }); %>
+        </ul>
+    </section>
+</main>

@@ -1,9 +1,10 @@
+import 'dotenv/config';
 import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { dirname } from 'path';
-
-
+import { testConnection } from "./src/models/db.js";
+import router from './src/routes/index.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -24,22 +25,14 @@ app.set('view engine', 'ejs');
 // Tell Express where to find your templates
 app.set('views', path.join(__dirname, 'src/views'));
 
+app.use(router);
 
-/**
-  * Routes
-  */
-app.get('/', (req, res) => {
-    res.render('home', { title: 'Home' });
-});
-
-app.get('/organizations', (req, res) => {
-    res.render('organizations', { title: 'Organizations' });
-});
-
-app.get('/projects', (req, res) => {
-    res.render('projects', { title: 'Projects' });
-});
-
-app.listen(process.env.PORT || 3000, () => {
-    console.log('Server is running on port 3000');
+app.listen(process.env.PORT, async () => {
+    try {
+        await testConnection();
+        console.log(`Server is running at http://127.0.0.1:${process.env.PORT}`);
+        console.log(`Environment: ${process.env.NODE_ENV}`);
+    }catch (error) {
+        console.log('Error connecting to the database server', error);
+    }
 });
