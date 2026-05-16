@@ -1,4 +1,4 @@
-import { getAllProjects } from "../models/projects.js";
+import { getAllProjects, getSingleProject } from "../models/projects.js";
 
 const getProjectPage = async (req, res, next) => {
     try {
@@ -10,6 +10,19 @@ const getProjectPage = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+};
+
+const getProjectByID = async (req, res, next) => {
+    try {
+        const project = await getSingleProject(req.params.id);
+        res.render('project', {
+            title: 'Project',
+            project
+        });
+    } catch (error) {
+        next(error);
+    }
 }
 
-export { getProjectPage }
+
+export { getProjectPage, getProjectByID}

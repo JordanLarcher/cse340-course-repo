@@ -1,0 +1,10 @@
+<%- include('partials/header') %>
+<main>
+    <h1><%= title %></h1>
+    <% if (category.length > 0) { %>
+        <h2><%= category[0].name %></h2>
+    <% } else { %>
+        <p>Category not found.</p>
+    <% } %>
+</main>
+<%- include('partials/footer') %>
