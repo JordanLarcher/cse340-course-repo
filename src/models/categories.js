@@ -10,9 +10,8 @@ const getAllCategories = async () => {
 };
 
 const getCategory = async (id) => {
-    const query = `select * from category where category_id = $1`;
-    const result = await db.query(query, [id]);
-    return result.rows;
+    const query = `SELECT * FROM category WHERE category_id = $1`;
+    return await db.query(query, [id]);
 }
 
 export { getAllCategories, getCategory }

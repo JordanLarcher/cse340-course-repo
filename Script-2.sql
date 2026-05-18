@@ -78,3 +78,14 @@ INSERT INTO category (name) VALUES
 ('Community Service'),
 ('Education'),
 ('Health');
+
+
+
+SELECT p.project_id, p.title, p.description, p.location, p.project_date,
+       o.name AS organization_name,
+       c.category_id, c.name AS category_name
+FROM service_project p
+         JOIN organizations o ON p.organization_id = o.organization_id
+         JOIN project_category pc ON p.project_id = pc.project_id
+         JOIN category c ON pc.category_id = c.category_id
+WHERE p.project_id = $1;
