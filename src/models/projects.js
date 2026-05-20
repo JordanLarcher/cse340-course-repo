@@ -13,7 +13,7 @@ const getAllProjects = async () => {
     return result.rows;
 }
 
-const getSingleProject = async (id) => {
+const getProjectByOrganizationId = async (id) => {
     const query = `
         SELECT
           project_id,
@@ -58,4 +58,4 @@ const getProjectDetails = async (id) => {
     return result.rows[0];
 }
 
-export { getAllProjects, getSingleProject, getUpcomingProjects, getProjectDetails };
+export { getAllProjects, getProjectByOrganizationId, getUpcomingProjects, getProjectDetails };

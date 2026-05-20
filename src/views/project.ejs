@@ -2,15 +2,18 @@
 
 <main>
     <h1><%= title %></h1>
-    <% if (project.length > 0) { %>
-        <h2><%= project[0].title %></h2>
-        <p><strong>Date:</strong> <%= project[0].project_date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></p>
-        <p><strong>Organization:</strong> <a href="/organization/<%= project[0].organization_id %>"><%= project[0].organization_name %></a></p>
-        <p><strong>Location:</strong> <%= project[0].location %></p>
-        <p><strong>Description:</strong> <%= project[0].description %></p>
-    <% } else { %>
-        <p>Project not found.</p>
-    <% } %>
+    <a href="/projects" class="back-link">&larr; Back to Projects</a>
+    <div class="project-detail">
+        <% if (project) { %>
+            <h2><%= project.title %></h2>
+            <p><strong>Date:</strong> <%= project.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+            <p><strong>Organization:</strong> <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></p>
+            <p><strong>Location:</strong> <%= project.location %></p>
+            <p><strong>Description:</strong> <%= project.description %></p>
+        <% } else { %>
+            <p class="project-not-found">Project not found.</p>
+        <% } %>
+    </div>
 </main>
 
 <%- include('partials/footer') %>

@@ -1,4 +1,4 @@
-import { getAllProjects, getSingleProject, getUpcomingProjects, getProjectDetails} from "../models/projects.js";
+import { getUpcomingProjects, getProjectDetails} from "../models/projects.js";
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 

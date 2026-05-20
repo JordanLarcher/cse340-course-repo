@@ -118,13 +118,15 @@ main ul li {
     background: var(--surface);
     border: 1px solid #e5e7eb;
     border-radius: var(--radius);
-    padding: 1rem 1.25rem;
+    padding: 1.25rem;
     margin-bottom: 0.75rem;
     box-shadow: var(--shadow);
-    transition: box-shadow 0.2s, border-color 0.2s;
+    transition: box-shadow 0.2s, border-color 0.2s, border-left-color 0.2s;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     gap: 0.75rem;
+    border-left: 3px solid transparent;
 
     &:hover {
         box-shadow: var(--shadow-lg);
@@ -132,6 +134,9 @@ main ul li {
     }
 }
 
+main ul li:hover {
+    border-left-color: var(--primary);
+}
 main ul li img {
     width: 48px;
     height: 48px;
@@ -142,7 +147,9 @@ main ul li img {
 main ul li a {
     text-decoration: none;
     color: var(--text);
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-weight: 500;
     width: 100%;
 }
@@ -163,4 +170,67 @@ footer {
         color: var(--text-light);
         max-width: none;
     }
+}
+
+.project-detail { 
+    background: var(--surface);
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.project-detail h2 {
+    font-size: 1.5rem;
+    color: var(--text);
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: 0;
+}
+
+.project-detail strong {
+    min-width:110px;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.project-not-found {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-light);
+    font-size: 1.15rem;
+}
+
+
+.project-date {
+    color: var(--text-light);
+    font-size: 0.875rem;
+}
+
+.project-org {
+    font-size: 0.875rem;
+}
+
+.project-org a {
+    color: var(--primary);
+    display: inline;
+    font-weight: 400;
+}
+
+.project-org a:hover {
+    text-decoration: underline;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.back-link:hover {
+    text-decoration:underline;
 }
