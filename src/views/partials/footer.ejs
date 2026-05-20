@@ -1,6 +1,9 @@
 
     <footer>
         <p>&copy; <%= new Date().getFullYear() %> CSE 340 Service Network.</p>
+        <% if (NODE_ENV === 'development'){%>
+            <p>Environment: <%= NODE_ENV %> mode</p>
+        <% } %>
     </footer>
 </body>
 </html>
