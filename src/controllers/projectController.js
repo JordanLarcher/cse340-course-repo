@@ -1,10 +1,12 @@
-import { getAllProjects, getSingleProject } from "../models/projects.js";
+import { getAllProjects, getSingleProject, getUpcomingProjects, getProjectDetails} from "../models/projects.js";
+
+const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
 const getProjectPage = async (req, res, next) => {
     try {
-        const projects = await getAllProjects();
+        const projects = await getUpcomingProjects(NUMBER_OF_UPCOMING_PROJECTS);
         res.render('projects', {
-            title: 'Projects',
+            title: 'Upcoming Service Projects',
             projects
         });
     } catch (error) {
@@ -22,7 +24,19 @@ const getProjectByID = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+};
+
+const showProjectDetailsPage = async (req, res, next) => {
+    try {
+        const project = await getProjectDetails(req.params.id);
+        res.render('project', {
+            title: 'Project Details',
+            project
+        });
+    } catch (error) {
+        next(error);
+    }
+};
 
 
-export { getProjectPage, getProjectByID}
+export { getProjectPage, getProjectByID, showProjectDetailsPage}

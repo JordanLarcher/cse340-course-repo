@@ -5,7 +5,7 @@
     <% if (project.length > 0) { %>
         <h2><%= project[0].title %></h2>
         <p><strong>Date:</strong> <%= project[0].project_date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></p>
-        <p><strong>Organization:</strong> <%= project[0].organization_name %></p>
+        <p><strong>Organization:</strong> <a href="/organization/<%= project[0].organization_id %>"><%= project[0].organization_name %></a></p>
         <p><strong>Location:</strong> <%= project[0].location %></p>
         <p><strong>Description:</strong> <%= project[0].description %></p>
     <% } else { %>
