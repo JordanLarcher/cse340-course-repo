@@ -11,6 +11,6 @@ router.get('/organization/:id', showOrganizationDetailsPage);
 router.get('/projects', getProjectPage);
 router.get('/project/:id', showProjectDetailsPage);
 router.get('/categories', getCategoryPage);
-router.get('/categories/:id', getCategoryByID);
+router.get('/category/:id', getCategoryByID);
 
 export default router;
