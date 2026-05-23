@@ -234,3 +234,20 @@ footer {
 .back-link:hover {
     text-decoration:underline;
 }
+
+
+.tag {
+    display: inline-block;
+    padding: 4px 12px;
+    margin: 2px;
+    background-color: #e0e0e0;
+    border-radius: 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 0.9em;
+}
+
+.tag:hover {
+    background-color: #bdbdbd;
+}
+

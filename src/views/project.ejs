@@ -3,6 +3,18 @@
 <main>
     <h1><%= title %></h1>
     <a href="/projects" class="back-link">&larr; Back to Projects</a>
+
+    <div class="category-tags">
+        <strong>Categories:</strong>
+        <% if (categories && categories.length > 0) { %>
+            <% categories.forEach(category => { %>
+                <a href="/categories/<%= category.category_id %>" class="category-tag"><%= category.name %></a>
+            <% }) %>
+        <% } else { %>
+            <span>No categories assigned.</span>
+        <% } %>
+    </div>
+
     <div class="project-detail">
         <% if (project) { %>
             <h2><%= project.title %></h2>

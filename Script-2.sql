@@ -80,6 +80,37 @@ INSERT INTO category (name) VALUES
 ('Health');
 
 
+-- ========================================
+-- Assign Projects to Categories
+-- ========================================
+-- Infrastructure projects (category_id = 1)
+INSERT INTO project_category (project_id, category_id) VALUES
+(1, 1), -- Park Bench Installation
+(2, 1), -- School Playground Renovation
+(3, 1), -- Community Garden Shed
+(4, 1), -- Sidewalk Repair Initiative
+(5, 1); -- Public Library Ramp
+-- Environment projects (category_id = 2)
+INSERT INTO project_category (project_id, category_id) VALUES
+(6, 2), -- Urban Orchard Planting
+(7, 2), -- Farmers Market Setup
+(8, 2), -- School Garden Workshop
+(9, 2), -- Composting Program Launch
+(10, 2), -- Rooftop Garden Installation
+(13, 2); -- Beach Cleanup Day
+-- Community Service projects (category_id = 3)
+INSERT INTO project_category (project_id, category_id) VALUES
+(11, 3), -- Senior Center Meal Delivery
+(12, 3), -- Food Bank Sorting Event
+(14, 3); -- Winter Clothing Drive
+-- Education projects (category_id = 4)
+INSERT INTO project_category (project_id, category_id) VALUES
+(2, 4), -- School Playground Renovation (also education-related)
+(8, 4); -- School Garden Workshop (also education-related)
+-- Health projects (category_id = 5)
+INSERT INTO project_category (project_id, category_id) VALUES
+(15, 5); -- Blood Donation Drive
+
 
 SELECT p.project_id, p.title, p.description, p.location, p.project_date,
        o.name AS organization_name,

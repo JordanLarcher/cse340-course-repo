@@ -16,12 +16,12 @@ const getCategoryByID = async (req, res, next) => {
     const categoryId = req.params.id;
     try{
         const category = await getCategory(categoryId);
-        const projects = await getProjectsByCategoryId(categoryId);
         if (!category) {
             const err = new Error('Category not found');
             err.status = 404;
             return next(err);
         }
+        const projects = await getProjectsByCategoryId(categoryId);
         res.render('category', {title: category.name, category, projects});
     }catch (error){
         next(error);
