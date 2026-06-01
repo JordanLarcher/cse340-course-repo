@@ -101,7 +101,7 @@ p {
 }
 
 img.main-logo {
-    display: block;
+    width: auto;
     max-width: 100%;
     height: auto;
     border-radius: var(--radius);
@@ -122,10 +122,6 @@ main ul li {
     margin-bottom: 0.75rem;
     box-shadow: var(--shadow);
     transition: box-shadow 0.2s, border-color 0.2s, border-left-color 0.2s;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem;
     border-left: 3px solid transparent;
 
     &:hover {
@@ -157,6 +153,16 @@ main ul li a {
 main ul li a:hover {
     color: var(--primary);
 }
+
+main ul li div {
+    display: flex;
+    flex-direction: row;
+}
+.org-contact-info{
+    display:flex;
+
+}
+
 footer {
     background: var(--surface);
     border-top: 1px solid #e5e7eb;
@@ -251,3 +257,56 @@ footer {
     background-color: #bdbdbd;
 }
 
+/* Flash message styles */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.alert.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.alert.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+.alert.warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+.alert.info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.form-container {
+    background: var(--surface);
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 0.75rem;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s, border-color 0.2s, border-left-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border-left: 3px solid transparent;
+    width: auto;
+    max-width: 500px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/*main .form-container {*/
+/*    margin: 0 auto 0 auto;*/
+/*}*/

@@ -5,6 +5,10 @@ import path from 'path';
 import { dirname } from 'path';
 import { testConnection } from "./src/models/db.js";
 import router from './src/routes/index.js';
+import session from 'express-session';
+import flash from './src/middlewares/flash.js';
+const SESSION_SECRET = process.env.SESSION_SECRET;
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
@@ -13,9 +17,25 @@ const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 const app = express();
 
 
+
 /**
   * Configure Express middleware
   */
+
+
+//Set up Session management
+app.use(session ({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge:60 * 60 * 1000 },
+}));
+
+//use the flash message middleware
+app.use(flash);
+
+app.use(express.urlencoded({ extended: true}));
+app.use(express.json());
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));

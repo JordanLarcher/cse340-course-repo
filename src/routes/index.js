@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { getOrganizationsPage, showOrganizationDetailsPage, showNewOrganizationForm } from "../controllers/organizationController.js";
+import { getOrganizationsPage, showOrganizationDetailsPage, showNewOrganizationForm, processNewOrganizationForm  } from "../controllers/organizationController.js";
 import { getProjectPage, showProjectDetailsPage } from "../controllers/projectController.js";
 import { getCategoryPage, getCategoryByID } from "../controllers/categoriesController.js";
 
@@ -9,7 +9,7 @@ router.get('/', (req, res) => res.render('home', {title: 'Home'}));
 router.get('/organizations', getOrganizationsPage);
 router.get('/organization/:id', showOrganizationDetailsPage);
 router.get('/new-organization', showNewOrganizationForm );
-
+router.post('/new-organization', processNewOrganizationForm);
 
 router.get('/projects', getProjectPage);
 router.get('/project/:id', showProjectDetailsPage);

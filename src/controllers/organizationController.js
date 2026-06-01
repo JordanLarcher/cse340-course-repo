@@ -1,4 +1,4 @@
-import { getAllOrganizations, getOrganizationsDetails } from "../models/organizations.js";
+import { getAllOrganizations, getOrganizationsDetails, createOrganization } from "../models/organizations.js";
 import { getProjectByOrganizationId } from "../models/projects.js";
 
 
@@ -31,4 +31,15 @@ const showNewOrganizationForm = async (req, res, next) => {
 };
 
 
-export { getOrganizationsPage, showOrganizationDetailsPage, showNewOrganizationForm };
+const processNewOrganizationForm = async (req, res) => {
+    const { name, description, contactEmail } = req.body;
+    const logoFilename = 'placeholder-logo.png';
+
+    const organizationId = await createOrganization(name, description, contactEmail, logoFilename);
+
+    // this sets the success flash message
+    req.flash('success', 'Organization Created Successfully!');
+    res.redirect(`/organization/${organizationId}`);
+}
+
+export { getOrganizationsPage, showOrganizationDetailsPage, showNewOrganizationForm, processNewOrganizationForm };

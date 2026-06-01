@@ -25,13 +25,13 @@ const getOrganizationsDetails = async (organizationId) => {
  * Creates a new organization in the database.
  * @param {string} name - The name of the organization.
  * @param {string} description - A description of the organization.
- * @param {string} contactEmail - The contact email for the organization.
- * @param {string} logoFilename - The filename of the organization's logo.
+ * @param contact_email
+ * @param logo_filename
  * @returns {string} The id of the newly created organization record.
  */
 const createOrganization = async (name, description, contact_email, logo_filename) => {
   const query = `
-      INSERT INTO organization (name, description, contact_email, logo_filename)
+      INSERT INTO organizations (name, description, contact_email, logo_filename)
       VALUES ($1, $2, $3, $4)
       RETURNING organization_id
     `;
@@ -39,7 +39,7 @@ const createOrganization = async (name, description, contact_email, logo_filenam
   const queryParams = [name, description, contact_email, logo_filename]
   const result = await db.query(query, queryParams);
 
-  if (result.row.length === 0) {
+  if (result.rows.length === 0) {
     throw new Error('Failed to create organization');
   }
 
@@ -51,4 +51,4 @@ const createOrganization = async (name, description, contact_email, logo_filenam
   return result.rows[0].organization_id;
 }
 
-export { getAllOrganizations, getOrganizationsDetails };
+export { getAllOrganizations, getOrganizationsDetails, createOrganization };
