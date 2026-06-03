@@ -37,6 +37,14 @@ app.use(flash);
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 
+// Override HTTP methods for forms using ?_method=PUT or ?_method=DELETE
+app.use((req, res, next) => {
+    if (req.query._method) {
+        req.method = req.query._method.toUpperCase();
+    }
+    next();
+});
+
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
 

@@ -1,4 +1,4 @@
-import { getAllOrganizations, getOrganizationsDetails, createOrganization } from "../models/organizations.js";
+import { getAllOrganizations, getOrganizationsDetails, createOrganization, updateOrganization } from "../models/organizations.js";
 import { getProjectByOrganizationId } from "../models/projects.js";
 
 
@@ -40,6 +40,28 @@ const processNewOrganizationForm = async (req, res) => {
     // this sets the success flash message
     req.flash('success', 'Organization Created Successfully!');
     res.redirect(`/organization/${organizationId}`);
+};
+
+const showEditOrganizationForm = async (req, res) => {
+    const organizationId = req.params.id;
+    const organizationDetails = await getOrganizationsDetails(organizationId);
+
+    const title = 'Edit Organization';
+    res.render('edit-organization', { title, organizationDetails });
+
 }
 
-export { getOrganizationsPage, showOrganizationDetailsPage, showNewOrganizationForm, processNewOrganizationForm };
+const processEditOrganizationForm = async (req, res) => {
+    const organizationId = req.params.id;
+    const { name, description, contactEmail, logoFilename } = req.body;
+
+    await updateOrganization(organizationId, name, description, contactEmail, logoFilename);
+
+    req.flash('success', 'Organization Updated Successfully!');
+    return res.redirect(`/organization/${organizationId}`);
+}
+
+
+
+export { processEditOrganizationForm, showEditOrganizationForm, getOrganizationsPage, showOrganizationDetailsPage, showNewOrganizationForm, processNewOrganizationForm };
+

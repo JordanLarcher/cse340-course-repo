@@ -1,12 +1,34 @@
 <%- include('partials/header') %>
 
-<main>
-    <img class="main-logo" src="images/cse340-service-network.png" alt="CSE 340 Service Network Logo">
-    <h1><%= title %></h1>
+<main class="home">
+    <section class="hero">
+        <img class="main-logo" src="/images/cse340-service-network.png" alt="CSE 340 Service Network Logo">
+        <h1><%= title %></h1>
+        <p class="tagline">Connect. Serve. Make a Difference.</p>
+    </section>
 
-    <h2>Welcome to the CSE 340 Service Network!</h2>
-    <p>Our mission is to promote service across the world by connecting volunteers with service opportunities in their community.</p>
+    <section class="mission">
+        <h2>Welcome to the CSE 340 Service Network!</h2>
+        <p>Our mission is to promote service across the world by connecting volunteers with service opportunities in their community.</p>
+    </section>
 
+    <section class="quick-links">
+        <a href="/organizations" class="card">
+            <span class="card-icon">🏢</span>
+            <span class="card-title">Organizations</span>
+            <span class="card-desc">Browse partner organizations leading service projects</span>
+        </a>
+        <a href="/projects" class="card">
+            <span class="card-icon">📋</span>
+            <span class="card-title">Projects</span>
+            <span class="card-desc">Find upcoming service opportunities near you</span>
+        </a>
+        <a href="/categories" class="card">
+            <span class="card-icon">🏷️</span>
+            <span class="card-title">Categories</span>
+            <span class="card-desc">Explore projects by category and interest</span>
+        </a>
+    </section>
 </main>
 
 <%- include('partials/footer') %>
