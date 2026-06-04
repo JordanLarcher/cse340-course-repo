@@ -10,7 +10,7 @@
                     <div>Organization: <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>
                     </div>
                     <div>
-                        Date: <%= project.project_date %>
+                        Date: <%= project.project_date ? new Date(project.project_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '' %>
                     </div>
                 </li>
             <% }); %>

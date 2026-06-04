@@ -4,9 +4,14 @@ import {
     getProjectPage,
     showProjectDetailsPage,
     showNewProjectForm,
-    processNewProjectForm
+    processNewProjectForm,
 } from "../controllers/projectController.js";
-import { getCategoryPage, getCategoryByID } from "../controllers/categoriesController.js";
+import {
+    getCategoryPage,
+    getCategoryByID,
+    showAssignCategoriesForm,
+    processAssignCategoriesForm
+} from "../controllers/categoriesController.js";
 import { organizationValidation, validateForm } from "../middlewares/validationForm.js";
 import { projectValidation, validateProjectForm } from "../middlewares/projectValidationForm.js";
 const router = Router();
@@ -25,7 +30,10 @@ router.get('/new-project', showNewProjectForm);
 router.post('/new-project', projectValidation, validateProjectForm, processNewProjectForm);
 
 
+// Routes to handle the assign categories to project form
 
+router.get('/project/:projectId/assign-categories', showAssignCategoriesForm);
+router.post('/assign-categories/:projectId', processAssignCategoriesForm);
 
 router.get('/categories', getCategoryPage);
 router.get('/category/:id', getCategoryByID);

@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS category (
 );
 
 CREATE TABLE IF NOT EXISTS project_category(
-  project_id INTEGER NOT NULL,
+    project_id INTEGER NOT NULL,
     category_id INTEGER NOT NULL,
     CONSTRAINT fk_project_category_project
         FOREIGN KEY (project_id)

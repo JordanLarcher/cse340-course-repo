@@ -1,6 +1,5 @@
 import { getUpcomingProjects, getProjectDetails, createProject} from "../models/projects.js";
 import { getCategoriesByProjectId } from "../models/categories.js";
-import {createOrganization, getAllOrganizations} from "../models/organizations.js";
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 

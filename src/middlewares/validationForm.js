@@ -30,7 +30,10 @@ const validateForm = async (req, res, next ) => {
             req.flash('error', error.msg);
         });
 
-        return res.redirect('/new-organization');
+        const redirectUrl = req.path.startsWith('/edit-organization')
+            ? req.path
+            : '/new-organization';
+        return res.redirect(redirectUrl);
     }
 
     next();

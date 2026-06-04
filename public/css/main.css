@@ -158,9 +158,9 @@ main ul li div {
     display: flex;
     flex-direction: row;
 }
-.org-contact-info{
-    display:flex;
-
+.org-contact-info {
+    display: flex;
+    gap: 0.35rem;
 }
 
 footer {
@@ -257,6 +257,27 @@ footer {
     background-color: #bdbdbd;
 }
 
+.category-tags {
+    margin-bottom: 1rem;
+}
+
+.category-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    margin: 2px;
+    background-color: var(--primary-light);
+    border-radius: 15px;
+    text-decoration: none;
+    color: var(--primary);
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.category-tag:hover {
+    background-color: #d0dffb;
+}
+
 /* Flash message styles */
 .flash-container {
     max-width: 960px;
@@ -350,6 +371,10 @@ footer {
     max-width: 500px;
 }
 
+.form-container:hover {
+    border-left-color: var(--primary);
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
@@ -363,7 +388,8 @@ footer {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
     padding: 0.6rem 0.75rem;
     border: 1px solid #d1d5db;
     border-radius: var(--radius);
@@ -376,7 +402,8 @@ footer {
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 3px var(--primary-light);
@@ -385,6 +412,41 @@ footer {
 .form-group textarea {
     resize: vertical;
     min-height: 100px;
+}
+
+.form-group select {
+    appearance: auto;
+    cursor: pointer;
+}
+
+.checkbox-group {
+    gap: 0.5rem;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--surface);
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    font-size: 0.95rem;
+}
+
+.checkbox-row:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+
+.checkbox-row input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--primary);
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 .form-container .btn,
