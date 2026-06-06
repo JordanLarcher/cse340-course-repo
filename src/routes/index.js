@@ -43,7 +43,8 @@ import {
     processLogout, 
     requireLogin, 
     showDashboard,
-    requireRole
+    requireRole,
+    showUsersList
 } from "../controllers/usersController.js";
 const router = Router();
 
@@ -87,5 +88,6 @@ router.post('/logout', processLogout);
 
 
 router.get('/dashboard', requireLogin, showDashboard);
+router.get('/users', requireLogin, requireRole('admin'), showUsersList);
 
 export default router;

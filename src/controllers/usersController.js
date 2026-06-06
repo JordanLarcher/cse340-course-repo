@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import {createUser, getUserByEmail, authenticateUser} from '../models/users.js';
+import {createUser, getUserByEmail, authenticateUser, getAllUsers} from '../models/users.js';
 
 
 
@@ -109,7 +109,16 @@ const requireRole = (role) => {
         next();
     };
 };
-
+const showUsersList = async (req, res) => {
+    try {
+        const users = await getAllUsers();
+        res.render('users', { title: 'Registered Users', users });
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        req.flash('error', 'Could not retrieve users list.');
+        res.redirect('/dashboard');
+    }
+}
 export { 
     showUserRegistrationForm, 
     processUserRegistrationForm, 
@@ -117,5 +126,6 @@ export {
     processLogout, 
     requireLogin, 
     showDashboard,
-    requireRole
+    requireRole,
+    showUsersList
 };

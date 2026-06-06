@@ -17,16 +17,20 @@
                     <li><a href="/categories">Categories</a></li>
                 </div>
                 <div class="nav-items">
+                    <% if(user && user.role_name === 'admin'){%>
+                        <li><a href="/users">Users</a></li>
+                    <% } %>
                     <% if(!isLoggedIn){%>
                         <li><a href="/register">Register</a></li>
                         <li><a href="/login">Login</a></li>
                     <% } else { %>
                         <li>
-    <form action="/logout" method="POST" style="display:inline">
-        <button type="submit" class="nav-link-btn">Logout</button>
-    </form>
-</li>
+                            <form action="/logout" method="POST" style="display:inline">
+                                <button type="submit" class="nav-link-btn">Logout</button>
+                            </form>
+                        </li>
                     <% } %>
+
                 </div>
             </div>
         </ul>
