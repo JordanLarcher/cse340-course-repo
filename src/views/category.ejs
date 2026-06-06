@@ -19,8 +19,10 @@
         <p>No projects in this category yet.</p>
     <% } %>
 
-    <div class="add-btn">
-        <a href="/edit-category/<%= category.category_id %>">Edit Category</a>
-    </div>
+    <% if (user && user.role_name === 'admin') { %>
+        <div class="add-btn">
+            <a href="/edit-category/<%= category.category_id %>">Edit Category</a>
+        </div>
+    <% } %>
 </main>
 <%- include('partials/footer') %>

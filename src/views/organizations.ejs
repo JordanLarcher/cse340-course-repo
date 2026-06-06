@@ -17,11 +17,13 @@
                 </div>
             </li>
         <% }); %>
-        </ul>
+    </ul>
 
+    <% if (user && user.role_name === 'admin') { %>
         <div class="add-btn">
             <a href="/new-organization">Add a New Organization</a>
         </div>
+    <% } %>
     </main>
 
 <%- include('partials/footer') %>

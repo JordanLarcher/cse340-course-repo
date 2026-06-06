@@ -22,8 +22,10 @@
         </ul>
     </div>
 
-    <div class="add-btn">
-        <a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a>
-    </div>
+    <% if (user && user.role_name === 'admin') { %>
+        <div class="add-btn">
+            <a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a>
+        </div>
+    <% } %>
 </main>
 <%- include('partials/footer') %>

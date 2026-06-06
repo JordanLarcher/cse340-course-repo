@@ -27,7 +27,7 @@
         <% } %>
     </div>
 
-    <% if (project) { %>
+    <% if (project && user && user.role_name === 'admin') { %>
         <div class="add-btn">
             <a href="/edit-project/<%= project.project_id %>">Edit Project</a>
         </div>
