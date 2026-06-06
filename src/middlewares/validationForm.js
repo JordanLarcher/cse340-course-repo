@@ -40,4 +40,30 @@ const validateForm = async (req, res, next ) => {
 }
 
 
-export { organizationValidation, validateForm };
+const categoryValidation = [
+    body('name')
+        .trim()
+        .notEmpty()
+        .withMessage('Category name is required')
+        .isLength({ min: 2, max: 100 })
+        .withMessage('Category name must be between 2 and 100 characters')
+];
+
+const validateCategoryForm = async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        errors.array().forEach((error) => {
+            req.flash('error', error.msg);
+        });
+
+        const redirectUrl = req.path.startsWith('/edit-category')
+            ? req.path
+            : '/new-category';
+        return res.redirect(redirectUrl);
+    }
+
+    next();
+}
+
+export { organizationValidation, validateForm, categoryValidation, validateCategoryForm };

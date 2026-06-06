@@ -29,6 +29,10 @@
             <span class="card-desc">Explore projects by category and interest</span>
         </a>
     </section>
+
+    <% if (isLoggedIn) { %>
+        <p><a href="/dashboard">My Dashboard</a></p>
+    <% } %>
 </main>
 
 <%- include('partials/footer') %>

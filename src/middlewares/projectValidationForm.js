@@ -40,7 +40,10 @@ const validateProjectForm = async (req, res, next ) => {
             req.flash('error', error.msg);
         });
 
-        return res.redirect('/new-project');
+        const redirectUrl = req.path.startsWith('/edit-project')
+            ? req.path
+            : '/new-project';
+        return res.redirect(redirectUrl);
     }
 
     next();

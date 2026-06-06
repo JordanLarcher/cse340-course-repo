@@ -8,7 +8,7 @@
         <strong>Categories:</strong>
         <% if (categories && categories.length > 0) { %>
             <% categories.forEach(category => { %>
-                <a href="/categories/<%= category.category_id %>" class="category-tag"><%= category.name %></a>
+                <a href="/category/<%= category.category_id %>" class="category-tag"><%= category.name %></a>
             <% }) %>
         <% } else { %>
             <span>No categories assigned.</span>
@@ -26,6 +26,12 @@
             <p class="project-not-found">Project not found.</p>
         <% } %>
     </div>
+
+    <% if (project) { %>
+        <div class="add-btn">
+            <a href="/edit-project/<%= project.project_id %>">Edit Project</a>
+        </div>
+    <% } %>
 </main>
 
 <%- include('partials/footer') %>

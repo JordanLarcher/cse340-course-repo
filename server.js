@@ -39,7 +39,7 @@ app.use(express.json());
 
 // Override HTTP methods for forms using ?_method=PUT or ?_method=DELETE
 app.use((req, res, next) => {
-    if (req.query._method) {
+    if (req.method === 'POST' && req.query._method) {
         req.method = req.query._method.toUpperCase();
     }
     next();
@@ -64,6 +64,10 @@ app.use((req, res, next) => {
 
 // Middleware to make NODE_ENV available to all templates via res.locals
 app.use((req, res, next) => {
+    res.locals.isLoggedIn = false;
+    if(req.session && req.session.user) {
+        res.locals.isLoggedIn = true;
+    }
     res.locals.NODE_ENV = NODE_ENV;
     next();
 });

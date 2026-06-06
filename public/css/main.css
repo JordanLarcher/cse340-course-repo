@@ -54,7 +54,7 @@ nav {
         margin: 0;
     }
 
-    a {
+    a, .nav-link-btn {
         display: block;
         padding: 1rem 1.25rem;
         text-decoration: none;
@@ -63,12 +63,40 @@ nav {
         font-size: 0.95rem;
         border-radius: var(--radius) var(--radius) 0 0;
         transition: background 0.2s, color 0.2s;
-
-        &:hover {
-            background: var(--primary-light);
-            color: var(--primary);
-        }
     }
+
+    a:hover {
+        background: var(--primary-light);
+        color: var(--primary);
+    }
+
+    .nav-link-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        line-height: inherit;
+        width: 100%;
+        text-align: left;
+    }
+
+    .nav-link-btn:hover {
+        background: var(--primary-light);
+        color: var(--primary);
+    }
+}
+
+.nav-display {
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+    justify-content: space-between;
+}
+
+.nav-items {
+    display: flex;
+    gap: 0.25rem;
+    flex-direction: row;
 }
 
 main {
@@ -591,4 +619,63 @@ footer {
     color: var(--text-light);
     text-align: center;
     line-height: 1.5;
+}
+
+.auth-form {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.auth-form form {
+    background: var(--surface);
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.auth-form .btn {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+.auth-form .form-group input {
+    padding: 0.7rem 0.85rem;
+    font-size: 1rem;
+}
+
+.auth-form .form-group label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 0 1rem;
+    }
+
+    nav ul {
+        gap: 0;
+    }
+
+    .nav-display {
+        flex-direction: column;
+    }
+
+    .nav-items {
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        padding: 0.75rem 1rem;
+    }
 }
