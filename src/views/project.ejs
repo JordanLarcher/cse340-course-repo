@@ -1,8 +1,8 @@
 <%- include('partials/header') %>
 
 <main>
-    <h1><%= title %></h1>
     <a href="/projects" class="back-link">&larr; Back to Projects</a>
+    <h1><%= project.title %></h1>
 
     <div class="category-tags">
         <strong>Categories:</strong>
@@ -30,6 +30,18 @@
     <% if (project && user && user.role_name === 'admin') { %>
         <div class="add-btn">
             <a href="/edit-project/<%= project.project_id %>">Edit Project</a>
+        </div>
+    <% } else if (project && user) { %>
+        <div class="project-volunteer-form">
+            <% if (isVolunteer) { %>
+                <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
+                    <button type="submit" class="btn-remove">Remove Volunteer</button>
+                </form>
+            <% } else { %>
+                <form action="/project/<%= project.project_id %>/volunteer" method="POST">
+                    <button type="submit" class="btn-volunteer">Volunteer</button>
+                </form>
+            <% } %>
         </div>
     <% } %>
 </main>

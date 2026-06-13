@@ -7,33 +7,31 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <nav>
-        <ul>
-            <div class="nav-display">
-                <div class="nav-items">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/organizations">Organizations</a></li>
-                    <li><a href="/projects">Projects</a></li>
-                    <li><a href="/categories">Categories</a></li>
-                </div>
-                <div class="nav-items">
-                    <% if(user && user.role_name === 'admin'){%>
-                        <li><a href="/users">Users</a></li>
-                    <% } %>
-                    <% if(!isLoggedIn){%>
-                        <li><a href="/register">Register</a></li>
-                        <li><a href="/login">Login</a></li>
-                    <% } else { %>
-                        <li>
-                            <form action="/logout" method="POST" style="display:inline">
-                                <button type="submit" class="nav-link-btn">Logout</button>
-                            </form>
-                        </li>
-                    <% } %>
-
-                </div>
-            </div>
-        </ul>
+    <nav class="site-nav">
+        <div class="nav-inner">
+            <ul>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/organizations" class="nav-link">Organizations</a></li>
+                <li><a href="/projects" class="nav-link">Projects</a></li>
+                <li><a href="/categories" class="nav-link">Categories</a></li>
+                <% if(user && user.role_name === 'admin'){%>
+                    <li><a href="/users" class="nav-link">Users</a></li>
+                <% } %>
+            </ul>
+            <ul>
+                <% if(!isLoggedIn){%>
+                    <li><a href="/register" class="nav-link">Register</a></li>
+                    <li><a href="/login" class="nav-link">Login</a></li>
+                <% } else { %>
+                    <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
+                    <li>
+                        <form action="/logout" method="POST" style="display:inline">
+                            <button type="submit" class="nav-link-btn">Logout</button>
+                        </form>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
     </nav>
 
     <% const messages = flash(); %>

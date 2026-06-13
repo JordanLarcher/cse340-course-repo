@@ -4,8 +4,28 @@
     <h1><%= title %></h1>
 
     <h2>Dashboard</h2>
-    <p>Name: <%= name %></p>
-    <p>Username: <%= email %></p>
+    <div class="dashboard-info">
+        <p><strong>Name:</strong> <%= name %></p>
+        <p><strong>Email:</strong> <%= email %></p>
+    </div>
+
+    <div class="volunteer-section">
+        <h3>My Volunteered Projects</h3>
+        <% if (volunteerList && volunteerList.length > 0) { %>
+        <ul>
+            <% volunteerList.forEach(project => { %>
+                <li>
+                    <a href="/project/<%= project.project_id %>"><%= project.title %></a>
+                    <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
+                        <button type="submit" class="btn-remove-sm">Remove</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p class="no-projects">You have not volunteered for any projects yet.</p>
+    <% } %>
+    </div>
 
 </main>
 

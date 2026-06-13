@@ -4,27 +4,23 @@
     <h2>Registered Volunteers and Administrators</h2>
     <p>A list of all users currently registered in the service network.</p>
 
-    <div class="project-detail">
-        <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
-            <thead>
-                <tr style="text-align: left; border-bottom: 2px solid var(--primary-light);">
-                    <th style="padding: 0.75rem 1rem; color: var(--text-light); font-weight: 600;">Name</th>
-                    <th style="padding: 0.75rem 1rem; color: var(--text-light); font-weight: 600;">Email</th>
-                    <th style="padding: 0.75rem 1rem; color: var(--text-light); font-weight: 600;">Role</th>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><strong><%= user.name %></strong></td>
+                    <td><%= user.email %></td>
+                    <td><span class="tag"><%= user.role_name %></span></td>
                 </tr>
-            </thead>
-            <tbody>
-                <% users.forEach(user => { %>
-                    <tr style="border-bottom: 1px solid #e5e7eb; transition: background 0.2s;" onmouseover="this.style.backgroundColor='var(--primary-light)'" onmouseout="this.style.backgroundColor='transparent'">
-                        <td style="padding: 0.75rem 1rem; font-weight: 500;"><%= user.name %></td>
-                        <td style="padding: 0.75rem 1rem; color: var(--text-light);"><%= user.email %></td>
-                        <td style="padding: 0.75rem 1rem;">
-                            <span class="category-tag" style="margin: 0;"><%= user.role_name %></span>
-                        </td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table>
-    </div>
+            <% }); %>
+        </tbody>
+    </table>
 </main>
 <%- include('partials/footer') %>

@@ -19,6 +19,24 @@ CREATE TABLE IF NOT EXISTS service_project (
     ON DELETE CASCADE
 );
 
+ALTER TABLE service_project DROP CONSTRAINT IF EXISTS uq_project_title;
+ALTER TABLE service_project ADD CONSTRAINT uq_project_title UNIQUE (title);
+
+
+CREATE TABLE IF NOT EXISTS user_project (
+    user_id INTEGER NOT NULL, 
+    project_id INTEGER NOT NULL,
+    PRIMARY KEY (user_id, project_id),
+    CONSTRAINT fk_user_project_user
+        FOREIGN KEY (user_id)
+        REFERENCES users (user_id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_user_project_project
+        FOREIGN KEY (project_id)
+        REFERENCES service_project (project_id)
+        ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS category (
   category_id SERIAL PRIMARY KEY,
   name VARCHAR(100) NOT NULL UNIQUE
@@ -37,6 +55,28 @@ CREATE TABLE IF NOT EXISTS project_category(
         ON DELETE CASCADE,
     PRIMARY KEY (project_id, category_id)
 );
+
+CREATE TABLE roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) UNIQUE NOT NULL,
+    role_description TEXT
+);
+
+
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role_id INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_users
+    FOREIGN KEY (role_id)
+    REFERENCES roles (role_id)
+    ON DELETE RESTRICT
+);
+
 -- ========================================
 -- Insert sample data: Organizations
 -- ========================================
@@ -67,7 +107,8 @@ INSERT INTO service_project (organization_id, title, description, location, proj
 (3, 'Food Bank Sorting Event', 'Sort and organize donations at the regional food bank', 'Regional Food Bank Warehouse', '2026-06-22'),
 (3, 'Beach Cleanup Day', 'Coordinate volunteers for a coastal beach cleanup', 'Sandy Shores Beach', '2026-07-10'),
 (3, 'Winter Clothing Drive', 'Collect and distribute winter clothing to shelters', 'Downtown Collection Center', '2026-07-30'),
-(3, 'Blood Donation Drive', 'Organize a community blood donation event', 'Community Health Center', '2026-08-20');
+(3, 'Blood Donation Drive', 'Organize a community blood donation event', 'Community Health Center', '2026-08-20')
+ON CONFLICT (title) DO NOTHING;
 
 -- ========================================
 -- Insert sample data: Categories
@@ -121,31 +162,10 @@ FROM service_project p
          JOIN category c ON pc.category_id = c.category_id
 WHERE p.project_id = $1;
 
-
-CREATE TABLE roles (
-    role_id SERIAL PRIMARY KEY,
-    role_name VARCHAR(50) UNIQUE NOT NULL,
-    role_description TEXT
-);
-
 INSERT INTO roles (role_name, role_description) VALUES
 ('user', 'Standard user with basic access'),
 ('admin', 'Administrator with full system access');
 SELECT * FROM roles;
-
-CREATE TABLE users (
-    user_id SERIAL PRIMARY KEY,
-    name VARCHAR(100) UNIQUE NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    role_id INTEGER,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT fk_users
-    FOREIGN KEY (role_id)
-    REFERENCES roles (role_id)
-    ON DELETE RESTRICT
-);
 
 -- Insert a test user
 INSERT INTO users (name, email, password_hash, role_id) 

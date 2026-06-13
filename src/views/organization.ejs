@@ -1,22 +1,27 @@
 <%- include('partials/header') %>
 <main>
-    <h1><%= title %></h1>
-
-    <h2><%= organizationDetails.name %></h2>
-
     <a href="/organizations" class="back-link">&larr; Back to Organizations</a>
-    <div class="project-detail">
-        <img src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
+    <h1><%= organizationDetails.name %></h1>
 
-        <p>Description: <%= organizationDetails.description %></p>
+    <div class="project-detail">
+        <% if (organizationDetails.logo_filename) { %>
+            <img src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo" class="org-logo">
+        <% } %>
+
+        <p><strong>Description:</strong> <%= organizationDetails.description %></p>
 
         <h3>Service Projects</h3>
         <ul>
             <% if (projects.length === 0) { %>
-                <li>No service projects found.</li>
+                <li class="empty-state">No service projects found.</li>
             <% } else { %>
                 <% projects.forEach(project => { %>
-                    <li><a href="/project/<%= project.project_id %>"><%= project.title %></a></li>
+                    <li>
+                        <a href="/project/<%= project.project_id %>">
+                            <strong><%= project.title %></strong>
+                            <span class="project-date"><%= project.project_date ? new Date(project.project_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '' %></span>
+                        </a>
+                    </li>
                 <% }) %>
             <% } %>
         </ul>

@@ -101,4 +101,66 @@ const updateProject = async (id, title, description, location, date, organizatio
     }
 }
 
-export { getAllProjects, getProjectByOrganizationId, getUpcomingProjects, getProjectDetails, createProject, updateProject};
+
+const addUserAsAVolunteer = async (user_id, project_id) => { 
+    const query = `
+        INSERT INTO user_project (user_id, project_id)
+        VALUES ($1, $2)
+        RETURNING *;
+    `;
+    const queryParams = [user_id, project_id];
+    const result = await db.query(query, queryParams);
+
+    if (result.rows.length === 0) {
+        throw new Error('Failed to insert user as a volunteer');
+    }
+
+    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+        console.log('User added as a volunteer for project with ID:', result.rows[0].project_id);
+    }
+
+    return result.rows[0];
+}
+
+const removeUserAsAVolunteer = async (user_id, project_id) => { 
+    const query = `
+        DELETE FROM user_project
+        WHERE user_id = $1 AND project_id = $2
+    `;
+
+    const queryParams = [user_id, project_id];
+    const result = await db.query(query,queryParams);
+
+    if (result.rowCount === 0) {
+        throw new Error('Failed to remove user from volunteer');
+    }
+
+    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+        console.log('User removed as a volunteer for project with ID:', result.rowCount);
+    }
+}
+
+const getUserVolunteer = async (id) => {
+    const query = `
+        SELECT p.project_id, p.title, p.description, p.location, p.project_date AS date,
+        o.name AS organization_name
+        FROM user_project up
+        JOIN service_project p ON up.project_id = p.project_id
+        JOIN organizations o ON p.organization_id = o.organization_id
+        WHERE up.user_id = $1;
+    `;
+    const result = await db.query(query, [id]);
+    return result.rows;
+}
+
+export { 
+    getAllProjects, 
+    getProjectByOrganizationId, 
+    getUpcomingProjects, 
+    getProjectDetails, 
+    createProject, 
+    updateProject,
+    addUserAsAVolunteer,
+    removeUserAsAVolunteer,
+    getUserVolunteer    
+};

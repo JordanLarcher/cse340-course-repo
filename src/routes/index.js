@@ -14,6 +14,8 @@ import {
     processNewProjectForm,
     showEditProjectForm,
     processEditProjectForm,
+    processUserVolunteer,
+    processRemoveUserVolunteer,
 } from "../controllers/projectController.js";
 import {
     getCategoryPage,
@@ -63,11 +65,15 @@ router.post('/new-project', requireLogin, requireRole('admin'), projectValidatio
 router.get('/edit-project/:id', requireLogin, requireRole('admin'), showEditProjectForm);
 router.put('/edit-project/:id', requireLogin, requireRole('admin'), projectValidation, validateProjectForm, processEditProjectForm);
 
+router.post('/project/:projectId/volunteer', requireLogin, processUserVolunteer);
 
 // Routes to handle the assign categories to project form
 
 router.get('/project/:projectId/assign-categories', requireLogin, requireRole('admin'), showAssignCategoriesForm);
 router.post('/assign-categories/:projectId', requireLogin, requireRole('admin'), processAssignCategoriesForm);
+router.post('/project/:projectId/volunteer', requireLogin, processUserVolunteer);
+router.post('/project/:projectId/unvolunteer', requireLogin, processRemoveUserVolunteer);
+
 
 router.get('/categories', getCategoryPage);
 router.get('/category/:id', getCategoryByID);

@@ -1,4 +1,12 @@
-import { getUpcomingProjects, getProjectDetails, createProject, updateProject } from "../models/projects.js";
+import { 
+    getUpcomingProjects, 
+    getProjectDetails, 
+    createProject, 
+    updateProject, 
+    addUserAsAVolunteer, 
+    removeUserAsAVolunteer, 
+    getUserVolunteer 
+} from "../models/projects.js";
 import { getAllOrganizations } from "../models/organizations.js";
 import { getCategoriesByProjectId } from "../models/categories.js";
 
@@ -21,7 +29,14 @@ const showProjectDetailsPage = async (req, res, next) => {
     try {
         const project = await getProjectDetails(req.params.id);
         const categories = await getCategoriesByProjectId(req.params.id);
-        res.render('project', { title: project.title, project, categories });
+
+        let isVolunteer = false;
+        if(req.session.user){
+            const userProjects = await getUserVolunteer(req.session.user.user_id);
+            isVolunteer = userProjects.some(p => p.project_id == req.params.id);
+        }
+        res.render('project', { title: project.title, project, categories, isVolunteer });
+        
     } catch (error) {
         next(error);
     }
@@ -84,4 +99,43 @@ const processEditProjectForm = async (req, res) => {
     }
 }
 
-export { getProjectPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, showEditProjectForm, processEditProjectForm };
+
+const processUserVolunteer = async (req, res) => {
+
+    const userId = req.session.user.user_id;
+    const projectId = req.params.projectId;
+    try {
+        await addUserAsAVolunteer(userId, projectId);
+        req.flash('success', 'You have been added as a Volunteer!');
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error('Error adding user as a volunteer', error);
+        req.flash('error', 'Something went wrong while adding the user as a volunteer');
+        res.redirect(`/project/${projectId}`);
+    }
+}
+
+const processRemoveUserVolunteer = async (req, res) => {
+    const userId = req.session.user.user_id;
+    const projectId = req.params.projectId;
+    try {
+        await removeUserAsAVolunteer(userId, projectId);
+        req.flash('success', 'You have been removed as a Volunteer!');
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error('Error removing user from volunteer', error);
+        req.flash('error', 'Something went wrong while removing the user from volunteer');
+        res.redirect(`/project/${projectId}`);
+    }
+}
+
+export { 
+    getProjectPage, 
+    showProjectDetailsPage, 
+    showNewProjectForm, 
+    processNewProjectForm, 
+    showEditProjectForm, 
+    processEditProjectForm, 
+    processUserVolunteer,
+    processRemoveUserVolunteer,
+};

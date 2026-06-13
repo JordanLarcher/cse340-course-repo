@@ -4,19 +4,25 @@
         <h1><%= title %></h1>
         <p>Here are a few of our partner organizations:</p>
         <ul>
-            <% organizations.forEach(organization => { %>
-            <li>
-                <div class="org-img-name">
-                    <% if (organization.logo_filename) { %>
-                        <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
-                    <% } %>
-                    <a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a>
-                </div>
-                <div class="org-contact-info">
-                    Contact Email: <%= organization.contact_email %>
-                </div>
-            </li>
-        <% }); %>
+            <% if (organizations.length === 0) { %>
+                <li class="empty-state">No partner organizations yet.</li>
+            <% } else { %>
+                <% organizations.forEach(organization => { %>
+                <li>
+                    <a href="/organization/<%= organization.organization_id %>" class="org-card-link">
+                        <div class="org-card-content">
+                            <div class="org-img-name">
+                                <% if (organization.logo_filename) { %>
+                                    <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
+                                <% } %>
+                                <span><%= organization.name %></span>
+                            </div>
+                            <span class="org-contact-info"><%= organization.contact_email %></span>
+                        </div>
+                    </a>
+                </li>
+            <% }); %>
+            <% } %>
     </ul>
 
     <% if (user && user.role_name === 'admin') { %>

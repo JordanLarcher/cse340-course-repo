@@ -6,17 +6,18 @@
         <ul>
             <% projects.forEach(project => { %>
                 <li>
-                    <a href="/project/<%= project.project_id %>"><%= project.title %></a>
-                    <div>Organization: <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>
-                    </div>
-                    <div>
-                        Date: <%= project.project_date ? new Date(project.project_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '' %>
+                    <a href="/project/<%= project.project_id %>">
+                        <strong><%= project.title %></strong>
+                        <span class="project-date"><%= new Date(project.project_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+                    </a>
+                    <div class="project-org">
+                        Organization: <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>
                     </div>
                 </li>
             <% }); %>
         </ul>
     <% } else { %>
-        <p>No projects in this category yet.</p>
+        <p class="empty-state">No projects in this category yet.</p>
     <% } %>
 
     <% if (user && user.role_name === 'admin') { %>

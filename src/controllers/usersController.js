@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import {createUser, getUserByEmail, authenticateUser, getAllUsers} from '../models/users.js';
+import { getUserVolunteer } from '../models/projects.js';
 
 
 
@@ -78,10 +79,16 @@ const requireLogin = (req, res, next) => {
     next(); 
 }
 
-const showDashboard = (req, res) => {
-    const user = req.session.user; // Assuming user info is stored in session  
-
-    res.render('dashboard', { title: 'Dashboard', name: user.name, email: user.email });
+const showDashboard = async (req, res) => {
+    const user = req.session.user; // Assuming user info is stored in session
+    const userId = req.session.user.user_id;
+    try {
+        const volunteerList = await getUserVolunteer(userId);
+        res.render('dashboard', { title: 'Dashboard', name: user.name, email: user.email, volunteerList });
+    }catch(error) {
+        console.error('Error fetching volunteer list:', error);
+        res.render('dashboard', { title: 'Dashboard', name: user.name, email: user.email, volunteerList: [] });
+    }
 }
 
 /**
